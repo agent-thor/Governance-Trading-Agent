@@ -96,12 +96,14 @@ If you prefer to set up manually:
 The project depends on several Python packages. You can view the complete list in the `requirements.txt` file. Key dependencies include:
 
 - **Data handling**: pandas, numpy
-- **Database**: firebase-admin, pymongo, boto3
+- **Database**: firebase-admin, pymongo, boto3 (optional, only for DynamoDB trade history)
 - **Trading**: python-binance
 - **AI/ML**: torch, transformers, nltk, langchain-community, openai
 - **Web services**: flask, requests
 - **Text processing**: beautifulsoup4
 - **External tool**: Ollama (installed separately)
+- **Optional AI Service**: Deepseek (if not provided, the bot will use only OpenAI and trained models)
+- **Optional Database**: DynamoDB (only needed if you want to save trade history in AWS)
 
 To install all dependencies at once:
 ```bash
@@ -135,17 +137,19 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 # AI API keys
 OPENAI_KEY=your_openai_api_key
+# Optional: Deepseek API credentials (if not provided, the bot will use only OpenAI and trained models)
 AGENT_ENDPOINT=https://your-agent-endpoint.com/api/v1/
 AGENT_KEY=your_agent_api_key
+
+# Optional: AWS DynamoDB credentials (only needed if you want to save trade history)
+# If not provided, trades will only be stored locally in JSON files
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-east-1
 
 # Ollama Configuration
 OLLAMA_HOST=http://localhost:11434
 OLLAMA_MODEL=mistral:7b
-
-# AWS credentials for DynamoDB
-AWS_ACCESS_KEY_ID=your_aws_access_key
-AWS_SECRET_ACCESS_KEY=your_aws_secret_key
-AWS_REGION=us-east-1
 
 # Trading parameters
 COUNTDOWN_TIME=60

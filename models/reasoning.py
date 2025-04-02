@@ -20,6 +20,12 @@ class Reasoning:
         self.ollama_weight = 0.4
         self.openai_weight = 0.5
         self.trained_weight = 0.1
+        # Check if Deepseek credentials are available
+        self.has_deepseek = bool(os.getenv("AGENT_ENDPOINT") and os.getenv("AGENT_KEY"))
+        if not self.has_deepseek:
+            # Adjust weights when Deepseek is not available
+            self.openai_weight = 0.7
+            self.trained_weight = 0.3
     
     def get_sentiment_score(self, output: str) -> float:
         """
@@ -198,9 +204,13 @@ class Reasoning:
         Predict market sentiment from text description using both models.
         Handles cases where either model might fail to produce a score.
         """
-        # Get deepseek sentiment score
-        deepseek_sentiment, deepseek_score = self.get_deepseek_sentiment(description)
-        print(f"Deepseek sentiment: {deepseek_sentiment}, score: {deepseek_score}")
+        deepseek_sentiment = None
+        deepseek_score = None
+        
+        # Only try Deepseek if credentials are available
+        if self.has_deepseek:
+            deepseek_sentiment, deepseek_score = self.get_deepseek_sentiment(description)
+            print(f"Deepseek sentiment: {deepseek_sentiment}, score: {deepseek_score}")
                
         # Get OpenAI sentiment score
         openai_sentiment, openai_score = self.get_openai_sentiment(description)

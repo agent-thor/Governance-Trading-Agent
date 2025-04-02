@@ -27,16 +27,10 @@ class Monitor:
     actions based on price movements.
     """
     
-    def __init__(self, dynamo_client, table_name):
+    def __init__(self):
         """
         Initialize the Monitor.
-        
-        Args:
-            dynamo_client: DynamoDB client for storing trade data
-            table_name (str): DynamoDB table name
         """
-        self.dynamo = dynamo_client
-        self.table_name = table_name
         self.config = get_config().config
     
     def check_price(self):

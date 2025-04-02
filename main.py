@@ -144,10 +144,18 @@ class GovernanceTradingBot:
                 openai_api_key=os.getenv("OPENAI_KEY")
             )
             
-            # Initialize DynamoDB client and price monitor
-            self.logger.info("Initializing DynamoDB client and price monitor")
-            self.dynamo = DynamoDBClient()
-            self.monitor = Monitor(self.dynamo, 'trade_table')
+            # Initialize DynamoDB client and price monitor only if AWS credentials are present
+            self.dynamo = None
+            self.monitor = None
+            if all([os.getenv("AWS_ACCESS_KEY_ID"), os.getenv("AWS_SECRET_ACCESS_KEY"), os.getenv("AWS_REGION")]):
+                self.logger.info("AWS credentials found, initializing DynamoDB client")
+                self.dynamo = DynamoDBClient()
+            else:
+                self.logger.info("AWS credentials not found, skipping DynamoDB initialization")
+            
+            # Initialize price monitor (independent of DynamoDB)
+            self.logger.info("Initializing price monitor")
+            self.monitor = Monitor()
             
             self.logger.info("All components initialized successfully")
             return True
@@ -174,11 +182,12 @@ class GovernanceTradingBot:
                 self.summary_obj, 
                 self.sentiment_analyzer, 
                 self.client, 
-                self.reasoning,
-                self.dynamo,
-                self.monitor
+                self.reasoning
             ])
         }
+        # Only include DynamoDB status if it was initialized
+        if self.dynamo is not None:
+            status["dynamodb_connected"] = True
         self.logger.debug(f"Bot status: {status}")
         return status
     
