@@ -1,0 +1,30 @@
+{
+    "0xprotocol": "ZRXUSDT",
+    "aave": "AAVEUSDT",
+    "apecoin": "APEUSDT",
+    "aragon": "ANTUSDT",
+    "arbitrum": "ARBUSDT",
+    "astar": "ASTRUSDT",
+    "badger": "BADGERUSDT",
+    "balancer": "BALUSDT",
+    "beamx": "BEAMXUSDT",
+    "compound": "COMPUSDT",
+    "curve": "CRVUSDT",
+    "etherfi": "ETHFIUSDT",
+    "immutablex": "IMXUSDT",
+    "lido": "LDOUSDT",
+    "makerdao": "MKRUSDT",
+    "optimism": "OPUSDT",
+    "pankcakeswap": "CAKEUSDT",
+    "pendle": "PENDLEUSDT",
+    "polygon": "MATICUSDT",
+    "quickswap": "QUICKUSDT",
+    "renzo": "RENZOUSDT",
+    "starknet": "STRKUSDT",
+    "sushi": "SUSHIUSDT",
+    "synapse": "SYNUSDT",
+    "uniswap": "UNIUSDT",
+    "venus": "XVSUSDT"
+}
+
+

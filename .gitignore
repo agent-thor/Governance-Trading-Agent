@@ -1,0 +1,6 @@
+/data
+.env
+firebase.json
+/trained_model
+/logs
+/trained_model
