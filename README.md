@@ -155,7 +155,7 @@ Run the included download script to automatically download and set up the models
 source venv/bin/activate
 
 # Run the download script
-python -m proposal_revamp.download_models
+python download_models.py
 ```
 
 This script will:
@@ -263,7 +263,7 @@ To run the API server separately:
 source venv/bin/activate
 
 # Run the API server directly
-python -m proposal_revamp.exchange.open_stop
+python -m exchange.open_stop
 ```
 
 This will start a Flask server on port 7111 with the following endpoints:

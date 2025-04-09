@@ -7,7 +7,7 @@ firebase.json
 
 
 # Ignore macOS system files
-#.DS_Store
+.DS_Store
 
 # Ignore Python cache
 __pycache__/
