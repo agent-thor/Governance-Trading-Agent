@@ -4,3 +4,11 @@ firebase.json
 /trained_model
 /logs
 /trained_model
+
+
+# Ignore macOS system files
+#.DS_Store
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
