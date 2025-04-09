@@ -306,46 +306,8 @@ To run the API server with your custom data provider:
 
 2. Run the API server:
    ```bash
-   python -m proposal_revamp.exchange.open_stop
+   python -m exchange.open_stop
    ```
 
 3. The server will use your configured data provider to access the necessary data
 
-### Custom API Endpoints
-
-If your data provider requires special handling, you might want to extend the API server with custom endpoints:
-
-1. Create a new file in the `proposal_revamp/exchange` directory
-2. Import and extend the existing Flask app or create a new one
-3. Add your custom endpoints
-4. Register your extensions in the `__init__.py` file
-
-Example of a custom endpoint for your data provider:
-
-```python
-from flask import Flask, jsonify
-from proposal_revamp.database import create_data_provider, get_config
-
-# Create your custom API extension
-def create_custom_api(app):
-    config = get_config().config
-    provider = create_data_provider(config.get('data_provider_type', 'firebase'), config)
-    connection = provider.connect()
-    
-    @app.route('/custom_provider_status', methods=['GET'])
-    def provider_status():
-        """Check the status of your custom data provider."""
-        try:
-            # Perform a simple operation with your provider
-            status = "connected"
-            return jsonify({
-                "provider_type": config.get('data_provider_type'),
-                "status": status
-            }), 200
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-    
-    return app
-```
-
-This approach allows you to leverage the same data provider abstraction for both the main bot and the standalone API server. 
