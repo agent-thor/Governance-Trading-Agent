@@ -1,10 +1,10 @@
-# Governance Trading Bot
+# Governance Trading Agent
 
 An automated trading system that monitors cryptocurrency governance proposals, analyzes their sentiment, and executes trades based on the predicted market impact.
 
 ## Documentation
 
-For detailed information about specific aspects of the bot, please refer to these documentation files:
+For detailed information about specific aspects of the agent, please refer to these documentation files:
 
 - [Data Providers Documentation](docs/data_providers.md) - How to create and use custom data sources
 - [Trade Flow Documentation](docs/trade_flow.md) - Complete trading workflow and sentiment analysis process
@@ -18,7 +18,7 @@ For detailed information about specific aspects of the bot, please refer to thes
 
 ### Ollama Installation for Text Summarization
 
-The governance bot uses Ollama with Mistral 7B for text summarization of governance proposals. Follow these steps to install Ollama:
+The governance agent uses Ollama with Mistral 7B for text summarization of governance proposals. Follow these steps to install Ollama:
 
 1. Install Ollama on your system:
    - **macOS/Linux/Windows**: Download from [Ollama's official website](https://ollama.com/download)
@@ -34,7 +34,7 @@ The governance bot uses Ollama with Mistral 7B for text summarization of governa
    ```
    You should see `mistral:7b` in the list of available models.
 
-4. Ensure Ollama is running when you start the bot. You can run it in the background with:
+4. Ensure Ollama is running when you start the agent. You can run it in the background with:
    ```bash
    ollama serve
    ```
@@ -95,7 +95,7 @@ The project depends on several Python packages. You can view the complete list i
 - **Web services**: flask, requests
 - **Text processing**: beautifulsoup4
 - **External tool**: Ollama (installed separately)
-- **Optional AI Service**: Deepseek (if not provided, the bot will use only OpenAI and trained models)
+- **Optional AI Service**: Deepseek (if not provided, the agent will use only OpenAI and trained models)
 - **Optional Database**: DynamoDB (only needed if you want to save trade history in AWS)
 
 To install all dependencies at once:
@@ -130,7 +130,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 # AI API keys
 OPENAI_KEY=your_openai_api_key
-# Optional: Deepseek API credentials (if not provided, the bot will use only OpenAI and trained models)
+# Optional: Deepseek API credentials (if not provided, the agent will use only OpenAI and trained models)
 AGENT_ENDPOINT=https://your-agent-endpoint.com/api/v1/
 AGENT_KEY=your_agent_api_key
 
@@ -159,7 +159,7 @@ DATA_PROVIDER_TYPE=firebase
 
 ### Downloading the Trading Model
 
-The bot requires pre-trained models for sentiment analysis and trading decisions. You can obtain these models in two ways:
+The agent requires pre-trained models for sentiment analysis and trading decisions. You can obtain these models in two ways:
 
 #### Option 1: Automatic Download (Recommended)
 
@@ -216,9 +216,9 @@ If the automatic download doesn't work, follow these steps:
 
 Make sure the paths in your `.env` file point to these model directories.
 
-## Running the Bot
+## Running the Agent
 
-After installation, you can run the bot using one of the following methods:
+After installation, you can run the agent using one of the following methods:
 
 ### Method 1: Using the Python Module (Recommended)
 
@@ -240,7 +240,7 @@ source venv/bin/activate
 python main.py
 ```
 
-Any of these methods will start the trading bot, which will:
+Any of these methods will start the trading agent, which will:
 1. Initialize all components
 2. Scan for new governance proposals
 3. Analyze sentiment
@@ -249,15 +249,15 @@ Any of these methods will start the trading bot, which will:
 
 ## API Access
 
-While the bot is running, you can access the API on port 7111:
+While the agent is running, you can access the API on port 7111:
 
 - `/open_positions` (GET): View currently open positions
 - `/stop_trade` (POST): Manually close a trade
-- `/status` (GET): Check the bot's current status
+- `/status` (GET): Check the agent's current status
 
 ## Running API Server Separately
 
-The bot includes a standalone API server (`open_stop.py`) that you can run independently from the main bot. This is useful if you want to monitor and manage trades without starting the full trading bot.
+The agent includes a standalone API server (`open_stop.py`) that you can run independently from the main agent. This is useful if you want to monitor and manage trades without starting the full trading agent.
 
 ### Starting the API Server
 
@@ -339,7 +339,7 @@ print(result)
 
 ## Custom Data Providers
 
-The bot uses a modular data provider system that allows you to integrate data from different sources. By default, it uses Firebase, but you can implement your own data provider to fetch governance proposals from any platform.
+The agent uses a modular data provider system that allows you to integrate data from different sources. By default, it uses Firebase, but you can implement your own data provider to fetch governance proposals from any platform.
 
 ### Using an Existing Data Provider
 
@@ -443,7 +443,7 @@ except ImportError:
 
 ### Required Data Format
 
-For your custom data provider to work with the bot, ensure:
+For your custom data provider to work with the agent, ensure:
 
 1. The `download_proposals` method returns a dictionary of DataFrames with columns:
    - `protocol`: The protocol name (e.g., "uniswap")
@@ -460,14 +460,14 @@ For your custom data provider to work with the bot, ensure:
    - `discussion_link`: Link to discussion (optional)
    - `timestamp`: When the proposal was created
 
-This ensures the bot can process the data correctly for sentiment analysis and trading decisions.
+This ensures the agent can process the data correctly for sentiment analysis and trading decisions.
 
 ## Conclusion
 
-The Governance Trading Bot provides an automated solution for monitoring cryptocurrency governance proposals and executing trades based on sentiment analysis. By following this documentation, you should be able to:
+The Governance Trading Agent provides an automated solution for monitoring cryptocurrency governance proposals and executing trades based on sentiment analysis. By following this documentation, you should be able to:
 
-1. Install and configure the bot with your preferred settings
-2. Run the bot to monitor proposals and execute trades
+1. Install and configure the agent with your preferred settings
+2. Run the agent to monitor proposals and execute trades
 3. Use the API to manage trades manually when needed
 4. Customize the data provider to fetch proposals from different sources
 
