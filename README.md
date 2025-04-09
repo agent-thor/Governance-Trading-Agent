@@ -34,6 +34,14 @@ The governance bot uses Ollama with Mistral 7B for text summarization of governa
 
 For more information, visit the [Ollama documentation](https://github.com/ollama/ollama).
 
+### Video Tutorial for Next Steps After Ollama Installation
+
+After you have installed Ollama, this video tutorial will guide you through the next steps which are described in the Manual Setup section below:
+
+[Manual Setup](https://drive.google.com/file/d/1kxwfw4dTZgtsJcjvL0yZmiGX4cMvjcdK/view?usp=sharing)
+
+The video provides a visual walkthrough of the manual setup process, making it easier to follow the installation steps.
+
 ### Manual Setup
 
 1. Clone the repository:
@@ -215,17 +223,7 @@ source venv/bin/activate
 python -m main
 ```
 
-### Method 2: Using the Entry Point (if installed as a package)
-
-```
-# If using the virtual environment
-source venv/bin/activate
-
-# Run using the entry point
-governance-bot
-```
-
-### Method 3: Direct Script Execution
+### Method 2: Direct Script Execution
 
 ```
 # If using the virtual environment
@@ -290,7 +288,9 @@ Parameters:
 - `quantity`: The amount to sell
 - `stop_orderid`: The ID of the stop loss order to cancel
 - `target_orderid`: The ID of the target price order to cancel
-- `type`: Either "long" or "short"
+- `type`: Either "long" or "short" (depending on the type of trade you have taken)
+
+The values for these parameters should match the specific trade you want to close. You can get the details of your open positions by calling the `/open_positions` endpoint first.
 
 ### Example API Usage
 
@@ -449,4 +449,22 @@ For your custom data provider to work with the bot, ensure:
 2. The `check_new_proposals` method returns a DataFrame with columns:
    - `post_id`: Unique proposal identifier
    - `coin`: Protocol/coin name
-   - `
+   - `description`: Proposal content
+   - `discussion_link`: Link to discussion (optional)
+   - `timestamp`: When the proposal was created
+
+This ensures the bot can process the data correctly for sentiment analysis and trading decisions.
+
+## Conclusion
+
+The Governance Trading Bot provides an automated solution for monitoring cryptocurrency governance proposals and executing trades based on sentiment analysis. By following this documentation, you should be able to:
+
+1. Install and configure the bot with your preferred settings
+2. Run the bot to monitor proposals and execute trades
+3. Use the API to manage trades manually when needed
+4. Customize the data provider to fetch proposals from different sources
+
+For additional support or to report issues, please visit the [GitHub repository](https://github.com/yourusername/governance_trade) or contact the development team.
+
+Happy trading!
+
