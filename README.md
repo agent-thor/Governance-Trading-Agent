@@ -2,6 +2,13 @@
 
 An automated trading system that monitors cryptocurrency governance proposals, analyzes their sentiment, and executes trades based on the predicted market impact.
 
+## Documentation
+
+For detailed information about specific aspects of the bot, please refer to these documentation files:
+
+- [Data Providers Documentation](docs/data_providers.md) - How to create and use custom data sources
+- [Trade Flow Documentation](docs/trade_flow.md) - Complete trading workflow and sentiment analysis process
+
 ## Installation
 
 ### Prerequisites
