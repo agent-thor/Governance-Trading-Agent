@@ -14,8 +14,7 @@ An automated trading system that monitors cryptocurrency governance proposals, a
 The governance bot uses Ollama with Mistral 7B for text summarization of governance proposals. Follow these steps to install Ollama:
 
 1. Install Ollama on your system:
-   - **macOS/Linux**: Run `curl -fsSL https://ollama.com/install.sh | sh`
-   - **Windows**: Download from [Ollama's official website](https://ollama.com/download)
+   - **macOS/Linux/Windows**: Download from [Ollama's official website](https://ollama.com/download)
 
 2. After installation, pull the Mistral 7B model:
    ```bash
@@ -35,7 +34,7 @@ The governance bot uses Ollama with Mistral 7B for text summarization of governa
 
 For more information, visit the [Ollama documentation](https://github.com/ollama/ollama).
 
-### Quick Setup
+### Manual Setup
 
 1. Clone the repository:
    ```
@@ -43,34 +42,13 @@ For more information, visit the [Ollama documentation](https://github.com/ollama
    cd governance_trade
    ```
 
-2. Run the installation script:
-   ```
-   chmod +x install.sh
-   ./install.sh
-   ```
-
-   This will:
-   - Create a virtual environment
-   - Install the package and dependencies
-   - Set up the required config files
-   - Create a data directory
-
-3. Edit the `.env` file with your actual credentials:
-   ```
-   nano .env
-   ```
-
-### Manual Setup
-
-If you prefer to set up manually:
-
-1. Create a virtual environment:
+2. Create a virtual environment:
    ```
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-2. Install dependencies (choose one of the following options):
+3. Install dependencies (choose one of the following options):
 
    **Option 1: Using requirements.txt** (recommended)
    ```
@@ -82,11 +60,11 @@ If you prefer to set up manually:
    pip install -e .
    ```
 
-3. Create a `.env` file with your configuration (see below)
+4. Create a `.env` file with your configuration (see below)
 
-4. Ensure `coin.json` and `precision.json` are in the root directory
+5. Ensure `coin.json` and `precision.json` are in the root directory
 
-5. Create a data directory:
+6. Create a data directory:
    ```
    mkdir -p data
    ```
@@ -225,20 +203,39 @@ Make sure the paths in your `.env` file point to these model directories.
 
 ## Running the Bot
 
-After installation, you can run the bot using:
+After installation, you can run the bot using one of the following methods:
+
+### Method 1: Using the Python Module (Recommended)
 
 ```
 # If using the virtual environment
 source venv/bin/activate
 
-# Run as a module
-python -m proposal_revamp
+# Run as a Python module
+python -m main
+```
 
-# Or use the console entry point
+### Method 2: Using the Entry Point (if installed as a package)
+
+```
+# If using the virtual environment
+source venv/bin/activate
+
+# Run using the entry point
 governance-bot
 ```
 
-This will start the trading bot, which will:
+### Method 3: Direct Script Execution
+
+```
+# If using the virtual environment
+source venv/bin/activate
+
+# Run the main.py file directly
+python main.py
+```
+
+Any of these methods will start the trading bot, which will:
 1. Initialize all components
 2. Scan for new governance proposals
 3. Analyze sentiment
@@ -452,101 +449,4 @@ For your custom data provider to work with the bot, ensure:
 2. The `check_new_proposals` method returns a DataFrame with columns:
    - `post_id`: Unique proposal identifier
    - `coin`: Protocol/coin name
-   - `description`: Proposal content  
-   - `discussion_link`: Link to discussion (optional)
-   - `timestamp`: When the proposal was created
-
-This ensures the bot can process the data correctly for sentiment analysis and trading decisions.
-
-## Documentation
-
-For detailed documentation, see:
-
-- [Main Documentation](docs/README.md)
-- [Data Provider System](docs/data_providers.md) - How to create and use custom data sources
-
-## Troubleshooting
-
-If you encounter the error `ModuleNotFoundError: No module named 'proposal_revamp'`, it means the package is not installed correctly. Make sure you:
-
-1. Run `pip install -e .` from the project root directory
-2. Run the bot from the project root directory
-3. Use the proper command: `python -m proposal_revamp`
-
-### Ollama Connection Issues
-
-If you encounter errors related to Ollama or text summarization:
-
-1. Ensure Ollama is properly installed and running:
-   ```bash
-   ollama serve
-   ```
-
-2. Check if the Mistral 7B model is installed:
-   ```bash
-   ollama list
-   ```
-
-3. If the model is missing, install it:
-   ```bash
-   ollama pull mistral:7b
-   ```
-
-4. Verify your .env file has the correct Ollama settings:
-   ```
-   OLLAMA_HOST=http://localhost:11434
-   OLLAMA_MODEL=mistral:7b
-   ```
-
-5. Test the Ollama connection:
-   ```bash
-   curl http://localhost:11434/api/generate -d '{
-     "model": "mistral:7b",
-     "prompt": "Hello world",
-     "stream": false
-   }'
-   ```
-   
-If issues persist, check the [Ollama documentation](https://github.com/ollama/ollama/blob/main/docs/troubleshooting.md) for additional troubleshooting steps.
-
-## Examples
-
-To help you get started, we've included example scripts in the `proposal_revamp/examples/` directory:
-
-### Data Provider Example
-
-The `data_provider_example.py` script demonstrates how to use the Data Provider abstraction layer to fetch proposals from different data sources:
-
-```bash
-# Activate the virtual environment
-source venv/bin/activate
-
-# Run the example
-python -m proposal_revamp.examples.data_provider_example
-```
-
-This example shows:
-1. How to use the MongoDB provider (default)
-2. How to use the Firebase provider (if configured)
-3. Information about creating custom data providers
-
-## Running Tests
-
-The project includes a test suite to ensure that components work as expected. To run the tests:
-
-```bash
-# Activate the virtual environment
-source venv/bin/activate
-
-# Run all tests
-python -m unittest discover proposal_revamp/tests
-
-# Run a specific test file
-python -m unittest proposal_revamp/tests/test_data_provider_factory.py
-```
-
-Writing tests for your custom data providers is highly recommended to ensure they integrate correctly with the system.
-
-## License
-
-This project is licensed under the terms of the MIT license. 
+   - `
