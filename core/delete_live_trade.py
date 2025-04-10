@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 14 13:16:26 2024
 
-@author: krishnayadav
-"""
 import json
 import time
 import os

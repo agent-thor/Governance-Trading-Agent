@@ -6,7 +6,7 @@ proposals, analyzing their sentiment, and executing trades based on predicted ma
 """
 
 __version__ = "0.1.0"
-__author__ = "Krishna Yadav"
+__author__ = "agent-thor"
 
 # Define what gets imported with `from proposal_revamp import *`
 __all__ = []

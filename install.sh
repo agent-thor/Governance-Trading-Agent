@@ -1,95 +1,141 @@
 #!/bin/bash
 # Installation script for Governance Trading Bot
 
-# Set up virtual environment
-echo "Creating virtual environment..."
-python -m venv venv
-source venv/bin/activate
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
 
-# Update pip
-echo "Upgrading pip..."
-pip install --upgrade pip
+# Function to print status messages
+print_status() {
+    echo -e "${GREEN}[*] $1${NC}"
+}
 
-# Install dependencies using requirements.txt
-echo "Installing dependencies from requirements.txt..."
-pip install -r requirements.txt
+# Function to print error messages
+print_error() {
+    echo -e "${RED}[!] $1${NC}"
+}
 
-# Install the package in development mode for console scripts
-echo "Installing package in development mode..."
-pip install -e .
+# Function to print warning messages
+print_warning() {
+    echo -e "${YELLOW}[!] $1${NC}"
+}
 
-# Check if .env file exists
-if [ ! -f ".env" ]; then
-    echo "Creating sample .env file..."
-    if [ -f "proposal_revamp/.env.example" ]; then
-        cp proposal_revamp/.env.example .env
-    else
-        echo "Warning: .env.example not found. Creating a basic .env file."
-        echo "DATA_DIR=./data" > .env
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to check if Ollama is installed
+check_ollama() {
+    if ! command_exists ollama; then
+        print_error "Ollama is not installed. Please install it from https://ollama.com/download"
+        exit 1
     fi
-    echo "Please edit the .env file with your actual credentials."
-fi
+}
 
-# Check if coin.json and precision.json files exist in root
-if [ ! -f "coin.json" ]; then
-    echo "Copying coin.json to root directory..."
-    cp proposal_revamp/exchange/coin.json ./coin.json
-fi
+# Function to check if Python is installed
+check_python() {
+    if ! command_exists python3; then
+        print_error "Python 3 is not installed. Please install it first."
+        exit 1
+    fi
+}
 
-if [ ! -f "precision.json" ]; then
-    echo "Copying precision.json to root directory..."
-    cp proposal_revamp/exchange/precision.json ./precision.json
-fi
+# Function to check if pip is installed
+check_pip() {
+    if ! command_exists pip3; then
+        print_error "pip3 is not installed. Please install it first."
+        exit 1
+    fi
+}
 
-# Create data directory if not exists
-if [ ! -d "data" ]; then
-    echo "Creating data directory..."
-    mkdir -p data
-fi
+# Function to check if git is installed
+check_git() {
+    if ! command_exists git; then
+        print_error "git is not installed. Please install it first."
+        exit 1
+    fi
+}
 
-# Create trained_model directories
-if [ ! -d "trained_model" ]; then
-    echo "Creating trained_model directories..."
-    mkdir -p trained_model/bullish trained_model/bearish trained_model/sentiment
+# Function to check if required files exist
+check_required_files() {
+    if [ ! -f "exchange/coin.json" ]; then
+        print_error "coin.json is missing in the exchange directory"
+        exit 1
+    fi
     
-    echo ""
-    echo "Downloading trading models..."
-    cd proposal_revamp1 && python download_models.py && cd ..
-    
-    # Check if the download was successful
-    if [ $? -ne 0 ]; then
-        echo ""
-        echo "IMPORTANT: Automatic download failed. You need to download the trading models manually."
-        echo "Please download from: https://drive.google.com/file/d/1zjDwBqagqUPZ8H-igv4KlxdyFA8S4pe3/view?usp=sharing"
-        echo "After downloading, extract the files to the respective directories:"
-        echo "  - trained_model/bullish/"
-        echo "  - trained_model/bearish/"
-        echo "  - trained_model/sentiment/"
-        echo ""
-        echo "Or follow the instructions in the README.md file."
+    if [ ! -f "exchange/precision.json" ]; then
+        print_error "precision.json is missing in the exchange directory"
+        exit 1
     fi
-fi
+}
 
-# Check if Ollama is installed
-echo "Checking for Ollama installation..."
-if ! command -v ollama &> /dev/null; then
-    echo "Ollama is not installed. Please install it manually for text summarization."
-    echo "For macOS/Linux: curl -fsSL https://ollama.com/install.sh | sh"
-    echo "For Windows: Download from https://ollama.com/download"
-    echo "Then run: ollama pull mistral:7b"
-else
-    echo "Ollama is installed. Checking for mistral:7b model..."
-    if ! ollama list | grep -q "mistral:7b"; then
-        echo "Downloading mistral:7b model for Ollama..."
-        ollama pull mistral:7b
+# Function to create data directory
+create_data_dir() {
+    if [ ! -d "data" ]; then
+        print_status "Creating data directory..."
+        mkdir -p data
+    fi
+}
+
+# Function to install dependencies
+install_dependencies() {
+    print_status "Installing dependencies..."
+    pip3 install -r requirements.txt
+}
+
+# Function to download models
+download_models() {
+    print_status "Downloading trading models..."
+    python3 download_models.py
+}
+
+# Function to create .env file
+create_env_file() {
+    if [ ! -f ".env" ]; then
+        print_status "Creating .env file from example..."
+        cp .env.example .env
+        print_warning "Please edit the .env file with your actual credentials"
     else
-        echo "Mistral:7b model is already installed."
+        print_warning ".env file already exists. Please make sure it's properly configured."
     fi
-fi
+}
 
-echo ""
-echo "Installation complete!"
-echo "To activate the environment: source venv/bin/activate"
-echo "To run the bot: python main.py"
-echo "Or use the console entry point: governance-bot"
-echo "" 
+# Main installation process
+main() {
+    print_status "Starting installation of Governance Trading Agent..."
+    
+    # Check prerequisites
+    print_status "Checking prerequisites..."
+    check_ollama
+    check_python
+    check_pip
+    check_git
+    
+    # Check required files
+    print_status "Checking required files..."
+    check_required_files
+    
+    # Create data directory
+    create_data_dir
+    
+    # Install dependencies
+    install_dependencies
+    
+    # Download models
+    download_models
+    
+    # Create .env file
+    create_env_file
+    
+    print_status "Installation completed successfully!"
+    print_warning "Please make sure to:"
+    echo "1. Edit the .env file with your actual credentials"
+    echo "2. Start Ollama in the background with: ollama serve"
+    echo "3. Run the agent with: python -m main"
+}
+
+# Run the main function
+main 
