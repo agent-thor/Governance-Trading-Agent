@@ -22,8 +22,8 @@ setup(
             "governance-bot=proposal_revamp.main:main",
         ],
     },
-    author="Krishna Yadav",
-    author_email="krishna@example.com",
+    author="agent-thor",
+    author_email="agent-thor@gmail.com",
     description="Governance Trading Bot for cryptocurrency trading based on governance proposals",
     python_requires=">=3.8",
     classifiers=[

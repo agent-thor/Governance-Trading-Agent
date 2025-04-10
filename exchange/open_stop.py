@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Nov 17 12:03:35 2024
 
-@author: krishnayadav
-"""
 
 from flask import Flask, request, jsonify
 import json
