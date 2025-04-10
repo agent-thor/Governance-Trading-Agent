@@ -4,10 +4,14 @@ An automated trading system that monitors cryptocurrency governance proposals, a
 
 ## Documentation
 
-For detailed information about specific aspects of the agent, please refer to these documentation files:
+Available documentation in `docs/`:
 
-- [Data Providers Documentation](docs/data_providers.md) - How to create and use custom data sources
-- [Trade Flow Documentation](docs/trade_flow.md) - Complete trading workflow and sentiment analysis process
+- [Environment Setup Guide](docs/env_setup.md) - Configure environment variables, API keys, and trading parameters
+- [Data Adapters Guide](docs/data_adapters.md) - Set up Firebase/MongoDB/custom data sources
+- [Trade Flow Documentation](docs/trade_flow.md) - Trading workflow and sentiment analysis
+- [API Endpoints Documentation](docs/api_endpoints.md) - REST API reference and examples
+
+For new users, follow the guides in the order listed above.
 
 # Quick Setup Guide
 
@@ -28,8 +32,10 @@ This guide provides a simplified step-by-step process to set up and run the Gove
 
 ## Step 2: Clone Repository and Install Dependencies
 
-1. Clone the repository:
+1. Clone the repository in a virtual env:
    ```bash
+   python -m venv venv
+   source venv/bin/activate
    git clone https://github.com/yourusername/governance_trade.git
    cd governance_trade
    mkdir data
@@ -77,6 +83,9 @@ python -m main
 # Method 2: Direct script execution
 python main.py
 ``` 
+
+If you face any problem, follow [data adapter guide](docs/data_adapters.md).
+
 
 ## Conclusion
 
