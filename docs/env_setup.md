@@ -43,6 +43,8 @@ This guide details all environment variables used in the Governance Trading Agen
 - `LEVERAGE`: Trading leverage multiplier (default: 3)
 - `STOP_LOSS_PERCENT`: Stop loss percentage (default: 2)
 - `MAX_TRADES`: Maximum number of concurrent trades (default: 4)
+- `BTC_DROP_THRESHOLD`: BTC drop check in last 12 or 24 hours (default: 2.5%) 
+If BTC dropped more than this, even the sentiment is highly bullish or bearish, it won't take trade.
 
 ### Logging
 - `LOG_LEVEL`: Logging level (default: INFO)
@@ -87,6 +89,7 @@ TRADE_AMOUNT=5000
 LEVERAGE=3
 STOP_LOSS_PERCENT=2
 MAX_TRADES=4
+BTC_DROP_THRESHOLD=2.5
 
 # Logging
 LOG_LEVEL=INFO

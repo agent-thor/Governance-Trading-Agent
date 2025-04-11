@@ -16,7 +16,9 @@ from urllib.parse import urlencode
 import json
 import os
 import sys
+from dotenv import load_dotenv
 
+load_dotenv()
 # Add the parent directory to sys.path for direct imports
 current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if current_dir not in sys.path:
@@ -95,7 +97,7 @@ def check_btc_price_drop(api_key, api_secret):
             '24h_ago_price': twenty_four_hours_ago_price,
             '12h_drop': twelve_hr_drop,
             '24h_drop': twenty_four_hr_drop,
-            'has_significant_drop': (twelve_hr_drop >= 2.5 or twenty_four_hr_drop >= 2.5),
+            'has_significant_drop': (twelve_hr_drop >= os.getenv("BTC_DROP_THRESHOLD") or twenty_four_hr_drop >= os.getenv("BTC_DROP_THRESHOLD")),
             'timestamp': datetime.now().isoformat()
         }
         
