@@ -96,6 +96,6 @@ The Governance Trading Agent provides an automated solution for monitoring crypt
 3. Use the API to manage trades manually when needed
 4. Customize the data provider to fetch proposals from different sources
 
-For additional support or to report issues, please visit the [GitHub repository](https://github.com/agent-thor/Governance-Trading-Agent/tree/main) or contact the development team.
+For additional support or to report issues, please visit the [GitHub repository](https://github.com/agent-thor/Governance-Trading-Agent/tree/main) or join our [Discord community](https://discord.gg/mbCe4jBuYW).
 
 Happy trading!
