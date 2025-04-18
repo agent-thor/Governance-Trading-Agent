@@ -36,7 +36,7 @@ This guide provides a simplified step-by-step process to set up and run the Gove
    ```bash
    python -m venv venv
    source venv/bin/activate
-   git clone https://github.com/yourusername/governance_trade.git
+   git clone https://github.com/agent-thor/governance-trading-agent.git
    cd governance_trade
    mkdir data
    ```
